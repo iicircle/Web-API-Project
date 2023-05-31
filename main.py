@@ -42,6 +42,8 @@ while valid_choice == False:
   if choice == "random": 
     print("do stuff here")
   elif choice == "name":
+    name = input("What is the pokemon's name?")
+    
     print("do stuff here")
   else: 
     print("do stuff here")
