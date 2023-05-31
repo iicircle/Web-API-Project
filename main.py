@@ -16,7 +16,7 @@ choice = input("You can view a random pokemon, or pick one by their name or numb
 valid_choice = False
 
 while valid_choice == False:
-  if isalpha(choice):
+  if choice.isalpha():
     choice = choice.lower()
   if choice not in valid_menu_choice:
     print("That's not a valid input.")
@@ -25,10 +25,13 @@ while valid_choice == False:
   else: 
     if choice == "random" or choice == "1":
       print("You selected random.")
+      valid_choice = True
     elif choice == "name" or choice == "by name" or "2":
       print("You selected by name.")
+      valid_choice = True
     elif choice == "number" or choice == "by number" or choice == "3":
       print("You selected by number.")
+      valid_choice = True
     else: 
       print("Thank you for using the pokedex!")
       break
@@ -36,7 +39,7 @@ while valid_choice == False:
     
 
   
-if 
+
 print("Your random Pokémon is: ")
 
 
