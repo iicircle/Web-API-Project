@@ -1,12 +1,18 @@
 ##print("test")
 import requests
+import random
 
 
-URLfirstgen = "https://pokeapi.co/api/v2/generation/1/"
-URLdefaultpoke = "https://pokeapi.co/api/v2/pokemon-species/"
 
 
-#x = requests.get(URLprice + random.randint(a,b))
+#Code Graveyard
+#to chose a random pokémon from the first generation
+#gen1int = random.randint(1, 151)
+#URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" + str(gen1int) + "/"
+#randGen = requests.get(URLrandomGen)
+#data = randGen.json()
+#print(data["name"].capitalize())
+#URLdefaultpoke = "https://pokeapi.co/api/v2/pokemon-species/"
 
 ##welcome user 
 print("Welcome to the Pokedex!\n")
@@ -28,9 +34,14 @@ while valid_choice == False:
     if choice == "random" or choice == "1":
       choice = "random"
       print("\nYou selected random.")
+      #random integer for a random pokemon from all gens
+      genInt = random.randint(1, 1010)
+      URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" +     str(genInt) + "/"
     elif choice == "name" or choice == "by name" or "2":
       choice = "name"
       print("\nYou selected by name.")
+      name = input("What Pokémon would you like by name?")
+      URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
     elif choice == "number" or choice == "by number" or choice == "3":
       choice = "number"
       print("\nYou selected by number.")
@@ -40,7 +51,23 @@ while valid_choice == False:
     valid_choice = True
 
   if choice == "random": 
-    print("do stuff here")
+
+    #To pull random Pokémon from API
+    randGen = requests.get(URLrandomGen)
+    data = randGen.json()
+    print("Your random Pokémon is " +     data["name"].capitalize() + "!")
+
+    #More options for the Pokémon
+    learn = input("Would you like to learn more about this Pokémon? [yes, no]")
+    
+    if learn.lower() == "yes":
+      learning = input("What would you like to learn? [add api calls here]")
+    
+      
+  
+
+  #add if statments 
+  
   elif choice == "name":
     name = input("What is the pokemon's name?")
     
@@ -52,7 +79,7 @@ while valid_choice == False:
 
   
 
-print("Your random Pokémon is: ")
+
 
 
 
