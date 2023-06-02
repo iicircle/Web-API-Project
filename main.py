@@ -58,10 +58,15 @@ while valid_choice == False:
     print("Your random Pokémon is " +     data["name"].capitalize() + "!")
 
     #More options for the Pokémon
-    learn = input("Would you like to learn more about this Pokémon? [yes, no]")
+    learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
     
     if learn.lower() == "yes":
-      learning = input("What would you like to learn? [add api calls here]")
+      learning = input("What would you like to learn? [type] ")
+      if learning == "type":
+        print("Here are the types of " + data["name"].capitalize())
+        for type in data["types"]:
+          
+          print(type["type"]["name"].capitalize())
     
       
   
@@ -69,7 +74,7 @@ while valid_choice == False:
   #add if statments 
   
   elif choice == "name":
-    name = input("What is the pokemon's name?")
+    
     
     print("do stuff here")
   else: 
