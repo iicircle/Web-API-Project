@@ -55,20 +55,21 @@ while valid_choice == False:
     #To pull random Pokémon from API
     randGen = requests.get(URLrandomGen)
     data = randGen.json()
-    print("Your random Pokémon is " +     data["name"].capitalize() + "!")
+    print("Your random Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
 
     #More options for the Pokémon
     learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
     
     if learn.lower() == "yes":
-      learning = input("What would you like to learn? [type] ")
+      learning = input("What would you like to learn? [type, moves] ")
       if learning == "type":
         print("Here are the types of " + data["name"].capitalize())
         for type in data["types"]:
-          
           print(type["type"]["name"].capitalize())
-    
-      
+      if learning == "moves":
+        print("Here are the moves that " + data["name"].capitalize() + " can learn!")
+        for move in data["moves"]:
+          print(move["move"]["name"].capitalize())
   
 
   #add if statments 
