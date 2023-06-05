@@ -22,6 +22,7 @@ def Display_Pokemon(poke_id_num):
   ##get length of pokemon nam + id 
   text_width = len(str(data["name"]) + str(data["id"]))
   bracket_list = []
+  bracket_list.clear()
   ## create bracket
   if text_width + 5 >= 18:
     bracket_width = text_width + 5
@@ -35,9 +36,24 @@ def Display_Pokemon(poke_id_num):
   ##print basic lines 
   bracket_list.append("*"*(bracket_width)) ##generate flat line (l0)
   bracket_list.append("*" + (" "*(bracket_width-2)) + "*") ##edge w/ no text (l1)
-  bracket_list.append("*" + (" "*half_txt_space) + str(data["name"]).upper() +  " [" + str(data["id"]) + "]" + (" " *half_txt_space) + "*") ## line for poke info (l2)  
+  bracket_list.append("*" + (" "*half_txt_space) + str(data["name"]).upper() +  " [" + str(data["id"]) + "]" + (" " *half_txt_space) + "*") ## line for poke info (l2)
+  for type in data["types"]:
+    text_width = len(type["type"]["name"]) + 2  ##len of text
+    half_txt_space = int((bracket_width - text_width)/2) ##space on side
+    bracket = "*" + (" "*(half_txt_space-1)) + ">" + str(type["type"]["name"]).capitalize() + "<" + (" "*(half_txt_space-1))
+    if len(bracket) + 1 != bracket_width:   #add a spot if != to bracket line 
+      bracket += " "
+    bracket_list.append(bracket + "*")
 
-  printing_order = [0, 1, 1, 2, 1, 1, 0] ## to condense down printing list 
+
+  printing_order = [0, 1, 1, 2]## to condense down printing list 
+  i = 2
+  for type in data["types"]: 
+    printing_order.append(i+1)
+    i += 1
+  printing_order.append(1)
+  printing_order.append(1)
+  printing_order.append(0)
   print("")
   for i in range(len(printing_order)):
     print(bracket_list[printing_order[i]])
