@@ -72,14 +72,15 @@ while valid_choice == False:
           print(move["move"]["name"].capitalize())
   
 
-  #add if statments 
-  
+   
+  ##select pokemon by name
   elif choice == "name":
     
     
     print("do stuff here")
+  ##select pokemon by number
   else: 
-    print("do stuff here")
+    
   
     
 
