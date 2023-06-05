@@ -25,7 +25,7 @@ valid_choice = False
 while valid_choice == False:
   ##if it's only text, turn it into all lowercase to make sure its a valid input
   if choice.isalpha():
-    choice = choice.lower()
+    choice = choice.lower() 
   if choice not in valid_menu_choice:
     print("That's not a valid input.\n\n")
     choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
@@ -34,14 +34,11 @@ while valid_choice == False:
     if choice == "random" or choice == "1":
       choice = "random"
       print("\nYou selected random.")
-      #random integer for a random pokemon from all gens
-      genInt = random.randint(1, 1010)
-      URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" +     str(genInt) + "/"
-    elif choice == "name" or choice == "by name" or "2":
+      
+    elif choice == "name" or choice == "by name" or choice == "2":
       choice = "name"
       print("\nYou selected by name.")
-      name = input("What Pokémon would you like by name?")
-      URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
+
     elif choice == "number" or choice == "by number" or choice == "3":
       choice = "number"
       print("\nYou selected by number.")
@@ -51,7 +48,9 @@ while valid_choice == False:
     valid_choice = True
 
   if choice == "random": 
-
+    #random integer for a random pokemon from all gens
+    genInt = random.randint(1, 1010)
+    URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" +     str(genInt) + "/"
     #To pull random Pokémon from API
     randGen = requests.get(URLrandomGen)
     data = randGen.json()
@@ -70,16 +69,31 @@ while valid_choice == False:
         print("Here are the moves that " + data["name"].capitalize() + " can learn!")
         for move in data["moves"]:
           print(move["move"]["name"].capitalize())
-  
+    else: 
+      print("Alright... :(")
 
    
   ##select pokemon by name
   elif choice == "name":
+    name = input("What Pokémon would you like by name?")
+    URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
     
     
     print("do stuff here")
   ##select pokemon by number
-  else: 
+  elif choice == "number": 
+    poke_number = input("What is the number of the pokemon? ")
+    ##force valid numeric input
+    while not poke_number.isnumeric():
+      print("Sorry, that is not a valid input. Please try again.")
+      poke_number = input("What is the number of the pokemon?")
+
+    URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" +     str(poke_number) + "/"
+    #To pull Pokémon from index # from API
+    randGen = requests.get(URLrandomGen)
+    data = randGen.json()
+
+    print("Your selected Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
     
   
     

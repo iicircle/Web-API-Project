@@ -1,0 +1,13 @@
+print("do stuff here")
+  ##select pokemon by number
+  else: 
+    poke_number = input("What is the number of the pokemon?")
+    ##force valid numeric input
+    while not poke_number.isnumeric():
+      print("Sorry, that is not a valid input. Please try again.")
+      poke_number = input("What is the number of the pokemon?")
+
+    randGen = requests.get(URLrandomGen)
+    x = randGen.get(data[poke_number])
+    print(str(x))
+    
