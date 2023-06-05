@@ -14,6 +14,35 @@ import random
 #print(data["name"].capitalize())
 #URLdefaultpoke = "https://pokeapi.co/api/v2/pokemon-species/"
 
+##function to generate a display box for pokemon
+def Display_Pokemon(poke_id_num):
+  URLpokemon = "https://pokeapi.co/api/v2/pokemon/" +     str(poke_id_num) + "/"
+  pokeGen = requests.get(URLpokemon)
+  data = pokeGen.json()
+  ##get length of pokemon nam + id 
+  text_width = len(str(data["name"]) + str(data["id"]))
+  bracket_list = []
+  ## create bracket
+  if text_width + 5 >= 18:
+    bracket_width = text_width + 5
+  else: 
+    bracket_width = 18
+  text_space_availible = bracket_width - (text_width + 5) ##space on side 
+  if text_space_availible%2==1: ##if odd -> + 1 to bracket and sides
+    bracket_width += 1 
+    text_space_availible += 1  
+  half_txt_space = int(text_space_availible/2)
+  ##print basic lines 
+  bracket_list.append("*"*(bracket_width)) ##generate flat line (l0)
+  bracket_list.append("*" + (" "*(bracket_width-2)) + "*") ##edge w/ no text (l1)
+  bracket_list.append("*" + (" "*half_txt_space) + str(data["name"]).upper() +  " [" + str(data["id"]) + "]" + (" " *half_txt_space) + "*") ## line for poke info (l2)  
+
+  printing_order = [0, 1, 1, 2, 1, 1, 0] ## to condense down printing list 
+  print("")
+  for i in range(len(printing_order)):
+    print(bracket_list[printing_order[i]])
+  print("")
+  
 ##welcome user 
 print("Welcome to the Pokedex!\n")
 ##creating list of valid options - they can pick random, by number, or name
@@ -88,13 +117,16 @@ while valid_choice == False:
       print("Sorry, that is not a valid input. Please try again.")
       poke_number = input("What is the number of the pokemon?")
 
-    URLrandomGen = "https://pokeapi.co/api/v2/pokemon/" +     str(poke_number) + "/"
+    URLidGen = "https://pokeapi.co/api/v2/pokemon/" +     str(poke_number) + "/"
     #To pull Pokémon from index # from API
-    randGen = requests.get(URLrandomGen)
-    data = randGen.json()
+    idGen = requests.get(URLidGen)
+    data = idGen.json()
 
-    print("Your selected Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
-    
+    print("The Pokémon you selected is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
+    Display_Pokemon(poke_number)
+
+
+
   
     
 
