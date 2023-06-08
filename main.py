@@ -102,9 +102,8 @@ while valid_choice == False:
       choice = "number"
       print("\nYou selected by number.")
     else: 
-      print("Thank you for using the pokedex!")
-      break
-    valid_choice = True
+      continue
+    
 
   if choice == "random": 
     #random integer for a random pokemon from all gens
@@ -154,9 +153,15 @@ while valid_choice == False:
       Learn_More_Pokemon()
     else: 
       print("Alright... :(")
-
-
-
+      
+  keep_using = input("Would you like to keep using the Pokédex? [yes, no]")
+  if keep_using == "no":
+    valid_choice = True
+    print("Thank you for using the pokedex!")
+    break
+  else:
+    choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
+    
   
     
 
