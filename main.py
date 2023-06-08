@@ -14,6 +14,8 @@ import random
 #print(data["name"].capitalize())
 #URLdefaultpoke = "https://pokeapi.co/api/v2/pokemon-species/"
 
+
+
 ##function to generate a display box for pokemon
 def Display_Pokemon(poke_id_num):
   URLpokemon = "https://pokeapi.co/api/v2/pokemon/" +     str(poke_id_num) + "/"
@@ -74,37 +76,45 @@ def Learn_More_Pokemon():
     print(data["name"].capitalize() + " is " + str(data["weight"]) + " hectograms!")
         
 ##welcome user 
-print("Welcome to the Pokedex!\n")
-##creating list of valid options - they can pick random, by number, or name
-valid_menu_choice = ["random", "number", "name", "by number", "by name", "1", "2", "3", "quit"]
-choice = input("You can view a random pokemon, or pick one by their name or number. \n\n   What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
-valid_choice = False
+print("Welcome to the Pokedex!\n\nYou can view a random pokemon, or pick one by their name or number.\n")
+##variable to keep program in while loop 
+poke_program_active = True
+while poke_program_active:
+  
+  ##creating list of valid options - they can pick random, by number, or name
+  valid_menu_choice = ["random", "number", "name", "by number", "by name", "1", "2", "3", "quit"]
+  choice = input("\n   What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
+  menu_choice = False
 
-##force valid input to console 
-while valid_choice == False:
-  ##if it's only text, turn it into all lowercase to make sure its a valid input
-  if choice.isalpha():
-    choice = choice.lower() 
-  if choice not in valid_menu_choice:
-    print("That's not a valid input.\n\n")
-    choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
-    continue
-  else: 
-    if choice == "random" or choice == "1":
-      choice = "random"
-      print("\nYou selected random.")
-      
-    elif choice == "name" or choice == "by name" or choice == "2":
-      choice = "name"
-      print("\nYou selected by name.")
-
-    elif choice == "number" or choice == "by number" or choice == "3":
-      choice = "number"
-      print("\nYou selected by number.")
-    else: 
+  ##this while loop runs if a menu selection has not been made 
+  while menu_choice == False:
+    ##if it's only text, turn it into all lowercase to make sure its a valid input
+    if choice.isalpha():
+      choice = choice.lower() 
+    if choice not in valid_menu_choice:
+      print("That's not a valid input.\n\n")
+      choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
       continue
+    else: 
+      if choice == "random" or choice == "1":
+        choice = "random"
+        #print("\nYou selected random.")
+        
+      elif choice == "name" or choice == "by name" or choice == "2":
+        choice = "name"
+        #print("\nYou selected by name.")
+  
+      elif choice == "number" or choice == "by number" or choice == "3":
+        choice = "number"
+        #print("\nYou selected by number.")
+      else: 
+        print("Thank you for using the pokedex.")
+        poke_program_active = False
+        break
+    menu_choice = True
     
 
+  
   if choice == "random": 
     #random integer for a random pokemon from all gens
     genInt = random.randint(1, 1010)
@@ -112,21 +122,28 @@ while valid_choice == False:
     #To pull random Pokémon from API
     randGen = requests.get(URLrandomGen)
     data = randGen.json()
-    print("Your random Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
+    print("\nYour random Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
     poke_number = genInt 
     Display_Pokemon(poke_number)
     #More options for the Pokémon
-    learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
-    
+    learn = input("\nould you like to learn more about this Pokémon? [yes, no] ")
+      
     if learn.lower() == "yes":
       Learn_More_Pokemon()
     else: 
-      print("Alright... :(")
+      keep_using = input("\nWould you like to keep using the Pokédex? [yes, no]")
+      if keep_using == "yes":
+        menu_choice = False
+        continue
+      else:
+        print("\n\nThank you for using the pokedex!")
+        poke_program_active = False
+        break
 
    
   ##select pokemon by name
   elif choice == "name":
-    name = input("What Pokémon would you like by name?")
+    name = input("\nWhat Pokémon would you like by name?")
 
     URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
     
@@ -134,7 +151,7 @@ while valid_choice == False:
 
   ##select pokemon by number
   elif choice == "number": 
-    poke_number = input("What is the number of the pokemon? ")
+    poke_number = input("\nWhat is the number of the pokemon? ")
     ##force valid numeric input
     while not poke_number.isnumeric():
       print("Sorry, that is not a valid input. Please try again.")
@@ -145,23 +162,31 @@ while valid_choice == False:
     idGen = requests.get(URLidGen)
     data = idGen.json()
 
-    print("The Pokémon you selected is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
+    print("\n\nThe Pokémon you selected is " +     data["name"].capitalize() + "! (ID: " + str(data["id"])+ ")")
     Display_Pokemon(poke_number)
 
-    learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
+    learn = input("\nWould you like to learn more about this Pokémon? [yes, no] ")
     
     if learn.lower() == "yes":
       Learn_More_Pokemon()
     else: 
-      print("Alright... :(")
+      keep_using = input("\nWould you like to keep using the Pokédex? [yes, no]")
+      if keep_using == "yes":
+        menu_choice = False
+        continue
+      else:
+        print("\n\nThank you for using the pokedex!")
+        poke_program_active = False
+        break
       
-  keep_using = input("Would you like to keep using the Pokédex? [yes, no]")
-  if keep_using == "no":
-    valid_choice = True
-    print("Thank you for using the pokedex!")
-    break
+  keep_using = input("\nWould you like to keep using the Pokédex? [yes, no]")
+  if keep_using == "yes":
+    menu_choice = False
+    continue
   else:
-    choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
+    print("\n\nThank you for using the pokedex!")
+    poke_program_active = False
+    break
     
   
     
@@ -173,3 +198,4 @@ while valid_choice == False:
 
 
 
+  
