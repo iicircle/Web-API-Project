@@ -58,7 +58,21 @@ def Display_Pokemon(poke_id_num):
   for i in range(len(printing_order)):
     print(bracket_list[printing_order[i]])
   print("")
-  
+
+
+def Learn_More_Pokemon():
+  learning = input("What would you like to learn? [abilities, moves, weight] ")
+  if learning == "abilities":
+    print("Here are the ability or abilities that " + data["name"].capitalize() + " has!")
+    for ability in data["abilities"]:
+      print(ability["ability"]["name"].capitalize())
+  if learning == "moves":
+    print("Here are the moves that " + data["name"].capitalize() + " can learn!")
+    for move in data["moves"]:
+      print(move["move"]["name"].capitalize())
+  if learning == "weight":
+    print(data["name"].capitalize() + " is " + str(data["weight"]) + " hectograms!")
+        
 ##welcome user 
 print("Welcome to the Pokedex!\n")
 ##creating list of valid options - they can pick random, by number, or name
@@ -88,9 +102,8 @@ while valid_choice == False:
       choice = "number"
       print("\nYou selected by number.")
     else: 
-      print("Thank you for using the pokedex!")
-      break
-    valid_choice = True
+      continue
+    
 
   if choice == "random": 
     #random integer for a random pokemon from all gens
@@ -100,20 +113,13 @@ while valid_choice == False:
     randGen = requests.get(URLrandomGen)
     data = randGen.json()
     print("Your random Pokémon is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
-
+    poke_number = genInt 
+    Display_Pokemon(poke_number)
     #More options for the Pokémon
     learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
     
     if learn.lower() == "yes":
-      learning = input("What would you like to learn? [type, moves] ")
-      if learning == "type":
-        print("Here are the types of " + data["name"].capitalize())
-        for type in data["types"]:
-          print(type["type"]["name"].capitalize())
-      if learning == "moves":
-        print("Here are the moves that " + data["name"].capitalize() + " can learn!")
-        for move in data["moves"]:
-          print(move["move"]["name"].capitalize())
+      Learn_More_Pokemon()
     else: 
       print("Alright... :(")
 
@@ -142,8 +148,21 @@ while valid_choice == False:
     print("The Pokémon you selected is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
     Display_Pokemon(poke_number)
 
-
-
+    learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
+    
+    if learn.lower() == "yes":
+      Learn_More_Pokemon()
+    else: 
+      print("Alright... :(")
+      
+  keep_using = input("Would you like to keep using the Pokédex? [yes, no]")
+  if keep_using == "no":
+    valid_choice = True
+    print("Thank you for using the pokedex!")
+    break
+  else:
+    choice = input("What would you like to do? \n [RANDOM] [BY NAME] [BY NUMBER] ")
+    
   
     
 
