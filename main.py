@@ -74,7 +74,8 @@ def Learn_More_Pokemon():
       print(move["move"]["name"].capitalize())
   if learning == "weight":
     print(data["name"].capitalize() + " is " + str(data["weight"]) + " hectograms!")
-        
+
+
 ##welcome user 
 print("Welcome to the Pokedex!\n\nYou can view a random pokemon, or pick one by their name or number.\n")
 ##variable to keep program in while loop 
