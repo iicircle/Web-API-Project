@@ -127,11 +127,12 @@ while poke_program_active:
     poke_number = genInt 
     Display_Pokemon(poke_number)
     #More options for the Pokémon
-    learn = input("\nould you like to learn more about this Pokémon? [yes, no] ")
+    learn = input("\nWould you like to learn more about this Pokémon? [yes, no] ")
       
     if learn.lower() == "yes":
       Learn_More_Pokemon()
     else: 
+      print("Alright... :(")
       keep_using = input("\nWould you like to keep using the Pokédex? [yes, no]")
       if keep_using == "yes":
         menu_choice = False
@@ -147,7 +148,27 @@ while poke_program_active:
     name = input("\nWhat Pokémon would you like by name?")
 
     URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
+    randGen = requests.get(URLnameGen)
+    data = randGen.json()
+    poke_number = data["id"]
+    print("The Pokémon you selected is " +     data["name"].capitalize() + "! ID: " + str(data["id"]))
+    Display_Pokemon(poke_number)
+
+    learn = input("Would you like to learn more about this Pokémon? [yes, no] ")
     
+    if learn.lower() == "yes":
+      Learn_More_Pokemon()
+    else: 
+      print("Alright... :(")
+      
+    keep_using = input("Would you like to keep using the Pokédex? [yes, no]")
+    if keep_using == "yes":
+      menu_choice = False
+      continue
+    else:
+      print("\n\nThank you for using the pokedex!")
+      poke_program_active = False
+      break
     
 
   ##select pokemon by number
