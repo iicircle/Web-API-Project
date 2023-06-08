@@ -121,10 +121,11 @@ while valid_choice == False:
   ##select pokemon by name
   elif choice == "name":
     name = input("What Pokémon would you like by name?")
+
     URLnameGen = "https://pokeapi.co/api/v2/pokemon/" +     str(name) + "/"
     
     
-    print("do stuff here")
+
   ##select pokemon by number
   elif choice == "number": 
     poke_number = input("What is the number of the pokemon? ")
